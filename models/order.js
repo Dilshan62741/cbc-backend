@@ -30,6 +30,10 @@ const orderSchema = mongoose.Schema({
         type : Number,
         required : true
     },
+    labeledTotal : {
+        type : Number,
+        required : true
+    },
     products : [
         {
            productInfo :{
@@ -52,6 +56,10 @@ const orderSchema = mongoose.Schema({
             images :[
                 {type : String}
             ],
+            labelPrice :{
+                type : Number,
+                required : true
+            },
             price :{
                 type : Number,
                 required : true
