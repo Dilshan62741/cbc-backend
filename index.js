@@ -5,10 +5,14 @@ import productRouter from './routes/productRouter.js';
 import userRouter from './routes/userRouter.js';
 import jwt from 'jsonwebtoken';
 import orderRouter from './routes/orderRouter.js';
+import cors from 'cors';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const app = express();
-
+app.use(cors());
 app.use(bodyParser.json());
+
 app.use(
     (req,res,next) => {
         const tokenString = req.header("Authorization")
@@ -33,16 +37,16 @@ app.use(
     //next()
 })
 
-mongoose.connect("mongodb+srv://admin:1234@cluster0.qqaxd75.mongodb.net/?appName=Cluster0")
+mongoose.connect(process.env.MONGODB_URL)
 .then(() => {
     console.log('Connected to MongoDB');
 }).catch((err) => {
     console.log('Failed to connect to MongoDB', err)});
 
 
-app.use("/products",productRouter)
-app.use("/users",userRouter)
-app.use("/orders",orderRouter)
+app.use("/api/products",productRouter)
+app.use("/api/users",userRouter)
+app.use("/api/orders",orderRouter)
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
