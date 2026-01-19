@@ -52,9 +52,13 @@ export function loginUser(req,res){
                 lastName : user.lastName,
                 role : user.role,
                 img : user.img
-            }, prosecc.env.JWT_KEY
+            }, process.env.JWT_KEY
         );
-            res.status(200).json({message : "Login successful", token : token});
+            res.status(200).json({
+                message : "Login successful", 
+                token : token,
+                role : user.role
+            });
         }else{
             res.status(401).json({message : "Invalid credentials"});
         }
